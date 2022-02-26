@@ -1,6 +1,38 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
+import axios from "axios";
+import useFetch from "react-fetch-hook";
 
 const Home = () => {
+
+  const [ url, setUrl ] = useState( '' );
+
+  // useEffect( () => {
+  //   fetch( 'https://pokeapi.co/api/v2/pokemon/ditto' ).then( response =>
+  //     response.json().then( ( data ) => {
+  //       setUrl( data?.sprites?.back_default );
+  //     } )
+  //   )
+
+  // }, [] )
+
+  // useEffect( () => {
+  //   axios.get( 'https://pokeapi.co/api/v2/pokemon/ditto' )
+  //     .then( function ( response ) {
+  //       // handle success
+  //       console.log( response?.data?.sprites?.back_default );
+  //       setUrl( response?.data?.sprites?.back_default );
+  //     } )
+
+  // }, [] )
+
+
+  const { isLoading, data } = useFetch( "https://pokeapi.co/api/v2/pokemon/ditto" );
+
+  useEffect( function () {
+    console.log( data );
+  }, [ data ] )
+
+
   return (
     <div className="d-flex h-100 text-center text-white bg-dark vh-100">
       <div className="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
@@ -21,6 +53,9 @@ const Home = () => {
           <p className="lead">
             <a href="#" className="btn btn-lg  fw-bold border-white bg-white">Learn more</a>
           </p>
+
+          <img src={data?.sprites?.back_default} alt="Ditto" className="img-fluid" />
+
         </main>
 
         <footer className="mt-auto text-white-50">
